@@ -112,7 +112,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "未查询到会员");
         ActivityStack.create().addActivity(VipRechargeActivity.this);
         initView();
-        rechargeChoseList("no");
+//        rechargeChoseList("no");
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -155,17 +155,18 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     }
 
     private void rechargeChoseList(final String type) {
-
+        dialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("Memlevel", info.getLevelName());
+        params.put("Memlevel", info.MemlevelID);
         String url = UrlTools.obtainUrl(ac, "?Source=3", "MemRechargeRule");
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
+                    dialog.dismiss();
                     Log.d("xxDengjiS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getInt("flag") == 1) {
@@ -177,7 +178,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         if (type.equals("no")) {
 
                         } else {
-                            RechargeDialog.rechargeChoseDialog(ac, list, 1, new InterfaceBack() {
+                            RechargeDialog.rechargeChoseDialog(VipRechargeActivity.this, list, 1, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
                                     rechargeMsg = (RechargeMsg) response;
@@ -200,6 +201,8 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         }
                     }
                 } catch (Exception e) {
+                    LogUtils.d("xxEs",e.toString());
+                    dialog.dismiss();
                     if (type.equals("no")) {
 
                     } else {
@@ -210,6 +213,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                dialog.dismiss();
                 if (type.equals("no")) {
 
                 } else {
@@ -241,6 +245,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         VipInfoMsg infomsg = gson.fromJson(new String(responseBody, "UTF-8"), VipInfoMsg.class);
                         info = infomsg.getVdata().get(0);
                         tv_vipname.setText(info.getMemName());
+                        tv_cardmian.setText(info.MemCardNumber);
                         tv_vipyue.setText(info.getMemMoney());
                         tv_jifen.setText(info.getMemPoint());
                         tv_dengji.setText(info.getLevelName());
@@ -253,6 +258,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                     } else {
                         tv_vipname.setText("");
                         tv_vipyue.setText("");
+                        tv_cardmian.setText("");
                         tv_jifen.setText("");
                         tv_dengji.setText("");
                         isSuccess = false;
@@ -263,6 +269,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                     tv_vipname.setText("");
                     tv_vipyue.setText("");
                     tv_jifen.setText("");
+                    tv_cardmian.setText("");
                     tv_dengji.setText("");
                     isSuccess = false;
                     PreferenceHelper.write(ac, "shoppay", "memid", "123");
@@ -275,6 +282,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                 dialog.dismiss();
                 tv_vipname.setText("");
                 tv_vipyue.setText("");
+                tv_cardmian.setText("");
                 tv_jifen.setText("");
                 tv_dengji.setText("");
                 isSuccess = false;
@@ -588,7 +596,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     @Override
     protected void onStop() {
         try {
-            new ReadCardOpt().overReadCard();
+            new ReadCardOptHandler().overReadCard();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

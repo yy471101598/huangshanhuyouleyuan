@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -106,7 +107,15 @@ public class XiaoMuXfActivity extends Activity {
         super.onResume();
         new ReadCardOptHandler(handler);
     }
-
+    @Override
+    protected void onStop() {
+        try {
+            new ReadCardOptHandler().overReadCard();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        super.onStop();
+    }
 
     private void ontainVipInfo(String card) {
         dialog.show();
@@ -156,6 +165,7 @@ public class XiaoMuXfActivity extends Activity {
                         }
                     } else {
                         SoundPlayUtils.play(2);
+                        Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                         viprechargeEtName.setText("");
                         viprechargeEtYue.setText("");
                         viprechargeEtCardmian.setText("");

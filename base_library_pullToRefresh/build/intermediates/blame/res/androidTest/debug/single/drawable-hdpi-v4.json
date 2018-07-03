@@ -30,5 +30,13 @@
     {
         "merged": "F:\\shenzhenvipsystemnewzh\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_arrow.png",
         "source": "F:\\shenzhenvipsystemnewzh\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
+    },
+    {
+        "merged": "F:\\mayun\\hehaihuanleshijienew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_arrow.png",
+        "source": "F:\\mayun\\hehaihuanleshijienew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
+    },
+    {
+        "merged": "F:\\mayun\\hehaihuanleshijienew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_rotate.png",
+        "source": "F:\\mayun\\hehaihuanleshijienew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_rotate.png"
     }
 ]

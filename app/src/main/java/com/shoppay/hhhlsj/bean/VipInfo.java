@@ -42,7 +42,7 @@ public  class VipInfo {
     private String MemConsumeMoney;
     private String ShopName;
     public String MemCardNumber;
-    public String Memlevel;
+    public String MemlevelID;
 
     public String getMemID() {
         return MemID;
