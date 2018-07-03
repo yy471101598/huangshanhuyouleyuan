@@ -41,6 +41,8 @@ public  class VipInfo {
     private String MemSex;
     private String MemConsumeMoney;
     private String ShopName;
+    public String MemCardNumber;
+    public String Memlevel;
 
     public String getMemID() {
         return MemID;

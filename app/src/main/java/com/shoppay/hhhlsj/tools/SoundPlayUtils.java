@@ -31,8 +31,8 @@ public class SoundPlayUtils {
         // 初始化声音
         mContext = context;
 
-        mSoundPlayer.load(mContext, R.raw.vipcard, 1);// 1
-        mSoundPlayer.load(mContext, R.raw.xiaofeisucess, 1);// 2
+        mSoundPlayer.load(mContext, R.raw.xfsuccess, 1);// 1
+        mSoundPlayer.load(mContext, R.raw.xfflase, 1);// 2
         mSoundPlayer.load(mContext, R.raw.yuenot, 1);// 3
         return soundPlayUtils;
     }

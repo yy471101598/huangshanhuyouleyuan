@@ -19,11 +19,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.shoppay.hhhlsj.bean.VipInfo;
-import com.shoppay.hhhlsj.bean.VipInfoMsg;
-import com.shoppay.hhhlsj.bean.VipServece;
-import com.shoppay.hhhlsj.card.ReadCardOpt;
 import com.shoppay.hhhlsj.card.ReadCardOptHandler;
-import com.shoppay.hhhlsj.tools.ActivityStack;
 import com.shoppay.hhhlsj.tools.BluetoothUtil;
 import com.shoppay.hhhlsj.tools.DayinUtils;
 import com.shoppay.hhhlsj.tools.DialogUtil;
@@ -140,25 +136,26 @@ public class XiaoMuXfActivity extends Activity {
                         viprechargeEtCard.setText(info.getMemCard());
                         viprechargeEtName.setText(info.getMemName());
                         viprechargeEtYue.setText(info.getMemMoney());
-                        viprechargeEtCardmian.setText("");
+                        viprechargeEtCardmian.setText(info.MemCardNumber);
                         viprechargeEtDengji.setText(info.getLevelName());
                         PreferenceHelper.write(ac, "shoppay", "memid", info.getMemID());
                         isSuccess = true;
-                        SoundPlayUtils.play(2);
+                        SoundPlayUtils.play(1);
                         JSONObject jsonObject = (JSONObject) jso.getJSONArray("print").get(0);
                         if (jsonObject.getInt("printNumber") == 0) {
-//                            finish();
+                            finish();
                         } else {
                             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                             if (bluetoothAdapter.isEnabled()) {
                                 BluetoothUtil.connectBlueTooth(MyApplication.context);
                                 BluetoothUtil.sendData(DayinUtils.dayin(jsonObject.getString("printContent")), jsonObject.getInt("printNumber"));
-//                                finish();
+                                finish();
                             } else {
-//                                finish();
+                                finish();
                             }
                         }
                     } else {
+                        SoundPlayUtils.play(2);
                         viprechargeEtName.setText("");
                         viprechargeEtYue.setText("");
                         viprechargeEtCardmian.setText("");
@@ -169,6 +166,7 @@ public class XiaoMuXfActivity extends Activity {
                     }
                 } catch (Exception e) {
 //                 viprechargeEtName.setText("");
+                    SoundPlayUtils.play(2);
                     viprechargeEtYue.setText("");
                     viprechargeEtCardmian.setText("");
                     viprechargeEtDengji.setText("");
@@ -183,6 +181,7 @@ public class XiaoMuXfActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //              viprechargeEtName.setText("");
+                SoundPlayUtils.play(2);
                 viprechargeEtYue.setText("");
                 viprechargeEtCardmian.setText("");
                 viprechargeEtDengji.setText("");
