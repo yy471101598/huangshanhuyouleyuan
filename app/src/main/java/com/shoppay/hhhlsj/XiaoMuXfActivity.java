@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.shoppay.hhhlsj.bean.VipInfo;
 import com.shoppay.hhhlsj.card.ReadCardOptHandler;
+import com.shoppay.hhhlsj.tools.ActivityStack;
 import com.shoppay.hhhlsj.tools.BluetoothUtil;
 import com.shoppay.hhhlsj.tools.DayinUtils;
 import com.shoppay.hhhlsj.tools.DialogUtil;
@@ -73,17 +75,35 @@ public class XiaoMuXfActivity extends Activity {
     TextView viprechargeEtDengji;
     @Bind(R.id.rl_hexiao)
     RelativeLayout rlHexiao;
+    private boolean isRunning = false;
+    private boolean isdetory = false;
     private Activity ac;
     private Dialog dialog;
+    private String cardNum="";
+    long firstTime=0;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 8:
-                    String card = (String) msg.obj;
-                    viprechargeEtCard.setText(card);
-                    ontainVipInfo(card);
+                    if (!isdetory) {
+                        if (!isRunning) {
+                            String card = (String) msg.obj;
+                            if(cardNum.equals(card)){
+                                long secndTime = System.currentTimeMillis();
+                                if (secndTime - firstTime > 5000) {
+                                    firstTime = secndTime;
+                                    viprechargeEtCard.setText(card);
+                                    ontainVipInfo(card);
+                                }
+
+                            }else {
+                                viprechargeEtCard.setText(card);
+                                ontainVipInfo(card);
+                            }
+                        }
+                    }
                     break;
             }
         }
@@ -95,6 +115,10 @@ public class XiaoMuXfActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xmxiaofei);
         ButterKnife.bind(this);
+        isRunning = false;
+        isdetory=false;
+         cardNum="";
+        firstTime=0;
         ac = this;
         dialog = DialogUtil.loadingDialog(ac, 1);
         tvTitle.setText("项目消费");
@@ -107,6 +131,7 @@ public class XiaoMuXfActivity extends Activity {
         super.onResume();
         new ReadCardOptHandler(handler);
     }
+
     @Override
     protected void onStop() {
         try {
@@ -117,8 +142,17 @@ public class XiaoMuXfActivity extends Activity {
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isdetory = true;
+    }
+
     private void ontainVipInfo(String card) {
         dialog.show();
+        firstTime=System.currentTimeMillis();
+        cardNum=card;
+        isRunning = true;
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
@@ -133,7 +167,8 @@ public class XiaoMuXfActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxVipinfoS", new String(responseBody, "UTF-8"));
+                    isRunning = false;
+                    Log.d("xxXfS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getInt("flag") == 1) {
                         dialog.dismiss();
@@ -176,6 +211,7 @@ public class XiaoMuXfActivity extends Activity {
                     }
                 } catch (Exception e) {
 //                 viprechargeEtName.setText("");
+                    isRunning = false;
                     SoundPlayUtils.play(2);
                     viprechargeEtYue.setText("");
                     viprechargeEtCardmian.setText("");
@@ -192,6 +228,7 @@ public class XiaoMuXfActivity extends Activity {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 //              viprechargeEtName.setText("");
                 SoundPlayUtils.play(2);
+                isRunning = false;
                 viprechargeEtYue.setText("");
                 viprechargeEtCardmian.setText("");
                 viprechargeEtDengji.setText("");
