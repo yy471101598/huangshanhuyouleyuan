@@ -448,7 +448,7 @@
 
         >
 
-        <com.shoppay.hhhlsj.view.MyGridViews
+        <com.shoppay.hshyly.view.MyGridViews
             android:id="@+id/gridview"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shoppay.hhhlsj">
+    package="com.shoppay.hshyly">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -17,14 +17,14 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="25" />
     <application
-        android:name="com.shoppay.hhhlsj.MyApplication"
+        android:name="com.shoppay.hshyly.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.shoppay.hhhlsj.SplashActivity"
+            android:name="com.shoppay.hshyly.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
 
@@ -36,81 +36,81 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shoppay.hhhlsj.HomeActivity"
+            android:name="com.shoppay.hshyly.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.wxcode.MipcaActivityCapture"
+            android:name="com.shoppay.hshyly.wxcode.MipcaActivityCapture"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.XiaoMuXfActivity"
+            android:name="com.shoppay.hshyly.XiaoMuXfActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.PersonalActivity"
+            android:name="com.shoppay.hshyly.PersonalActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.YingxiaoCenterActivity"
+            android:name="com.shoppay.hshyly.YingxiaoCenterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipChaxunActivity"
+            android:name="com.shoppay.hshyly.VipChaxunActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipQiandaoActivity"
+            android:name="com.shoppay.hshyly.VipQiandaoActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.JifenDuihuanActivity"
+            android:name="com.shoppay.hshyly.JifenDuihuanActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.JifenChangeActivity"
+            android:name="com.shoppay.hshyly.JifenChangeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.DuihuanjiluActivity"
+            android:name="com.shoppay.hshyly.DuihuanjiluActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.XiaofeiRecordActivity"
+            android:name="com.shoppay.hshyly.XiaofeiRecordActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.shoppay.hhhlsj.LoginActivity"
+            android:name="com.shoppay.hshyly.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.NumRechargeActivity"
+            android:name="com.shoppay.hshyly.NumRechargeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.HomeOldActivity"
+            android:name="com.shoppay.hshyly.HomeOldActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.NewBossCenterActivity"
+            android:name="com.shoppay.hshyly.NewBossCenterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipListActivity"
+            android:name="com.shoppay.hshyly.VipListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipDetailActivity"
+            android:name="com.shoppay.hshyly.VipDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipRechargeActivity"
+            android:name="com.shoppay.hshyly.VipRechargeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
@@ -120,28 +120,28 @@
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@android:style/Theme.Holo.Light.NoActionBar" />-->
         <activity
-            android:name="com.shoppay.hhhlsj.BalanceActivity"
+            android:name="com.shoppay.hshyly.BalanceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.FastConsumptionActivity"
+            android:name="com.shoppay.hshyly.FastConsumptionActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.NumConsumptionActivity"
+            android:name="com.shoppay.hshyly.NumConsumptionActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.hhhlsj.VipCardActivity"
+            android:name="com.shoppay.hshyly.VipCardActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
 
-        <service android:name="com.shoppay.hhhlsj.wxpay.PayResultPollService"></service>
-        <receiver android:name="com.shoppay.hhhlsj.wxpay.AlarmReceiver"></receiver>
+        <service android:name="com.shoppay.hshyly.wxpay.PayResultPollService"></service>
+        <receiver android:name="com.shoppay.hshyly.wxpay.AlarmReceiver"></receiver>
     </application>
 
 </manifest>
