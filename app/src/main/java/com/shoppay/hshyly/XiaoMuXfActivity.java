@@ -85,7 +85,7 @@ public class XiaoMuXfActivity extends Activity {
     @Bind(R.id.img_del)
     ImageView img_del;
     @Bind(R.id.tv_xmnum)
-    EditText et_xmnum;
+    TextView et_xmnum;
     @Bind(R.id.rl_confirm)
     RelativeLayout rl_confirm;
     private int xmnum = 1;

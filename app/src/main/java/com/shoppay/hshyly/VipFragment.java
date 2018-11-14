@@ -361,6 +361,7 @@ public class VipFragment extends Fragment  {
     };
 
 
+
     private void obtainVipInfo() {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(getActivity());

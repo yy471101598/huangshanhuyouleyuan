@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +22,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+import com.shoppay.hshyly.bean.FastShopZhehMoney;
+import com.shoppay.hshyly.bean.JifenDk;
+import com.shoppay.hshyly.bean.VipInfo;
 import com.shoppay.hshyly.bean.YinxiaoCenter;
 import com.shoppay.hshyly.http.InterfaceBack;
 import com.shoppay.hshyly.tools.BluetoothUtil;
@@ -25,6 +32,8 @@ import com.shoppay.hshyly.tools.DateUtils;
 import com.shoppay.hshyly.tools.DayinUtils;
 import com.shoppay.hshyly.tools.DialogUtil;
 import com.shoppay.hshyly.tools.LogUtils;
+import com.shoppay.hshyly.tools.PreferenceHelper;
+import com.shoppay.hshyly.tools.StringUtil;
 import com.shoppay.hshyly.tools.UrlTools;
 
 import org.json.JSONObject;
@@ -104,6 +113,35 @@ public class YingxiaoCenterActivity extends Activity {
     TextView tv_thyj;
     private Activity ac;
     private Dialog dialog;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    YinxiaoCenter yxmsg= (YinxiaoCenter) msg.obj;
+                    handlerYinxiaoMsg(yxmsg);
+
+//                    JSONObject jsonObject = (JSONObject) jso.getJSONArray("print").get(0);
+//                    if (jsonObject.getInt("printNumber") == 0) {
+//                    } else {
+//                        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//                        if (bluetoothAdapter.isEnabled()) {
+//                            BluetoothUtil.connectBlueTooth(MyApplication.context);
+//                            BluetoothUtil.sendData(DayinUtils.dayin(jsonObject.getString("printContent")), jsonObject.getInt("printNumber"));
+//                        } else {
+//                        }
+//                    }
+                    break;
+                case 2:
+                    handlerYinxiaoMsgNull();
+                    break;
+
+
+            }
+        }
+    };
+    private String editString="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +154,54 @@ public class YingxiaoCenterActivity extends Activity {
         mBossTvStarttime.setText(getStringDate());
         mBossTvEndtime.setText(getStringDate());
         obtainBoss();
+        et_account.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (delayRun != null) {
+                    //每次editText有变化的时候，则移除上次发出的延迟线程
+                    handler.removeCallbacks(delayRun);
+                }
+                editString = editable.toString();
+
+                //延迟800ms，如果不再输入字符，则执行该线程的run方法
+                handler.postDelayed(delayRun, 800);
+
+            }
+        });
     }
+
+
+    /**
+     * 延迟线程，看是否还有下一个字符输入
+     */
+    private Runnable delayRun = new Runnable() {
+
+        @Override
+        public void run() {
+            //在这里调用服务器的接口，获取数据
+            obtainBoss();
+        }
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (delayRun != null) {
+            //每次editText有变化的时候，则移除上次发出的延迟线程
+            handler.removeCallbacks(delayRun);
+        }
+    }
+
     public static String getStringDate() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -125,7 +210,6 @@ public class YingxiaoCenterActivity extends Activity {
     }
 
     private void obtainBoss() {
-        dialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
@@ -140,7 +224,6 @@ public class YingxiaoCenterActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    dialog.dismiss();
                     LogUtils.d("xxyingxiaoS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getInt("flag") == 1) {
@@ -149,31 +232,28 @@ public class YingxiaoCenterActivity extends Activity {
                         Type listType = new TypeToken<List<YinxiaoCenter>>() {
                         }.getType();
                         List<YinxiaoCenter> yinxiaoCenters = gson.fromJson(jso.getString("vdata"), listType);
-                         handlerYinxiaoMsg(yinxiaoCenters.get(0));
-
-                        JSONObject jsonObject = (JSONObject) jso.getJSONArray("print").get(0);
-                        if (jsonObject.getInt("printNumber") == 0) {
-                        } else {
-                            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                            if (bluetoothAdapter.isEnabled()) {
-                                BluetoothUtil.connectBlueTooth(MyApplication.context);
-                                BluetoothUtil.sendData(DayinUtils.dayin(jsonObject.getString("printContent")), jsonObject.getInt("printNumber"));
-                            } else {
-                            }
-                        }
+                        Message msg = handler.obtainMessage();
+                        msg.what = 1;
+                        msg.obj = yinxiaoCenters.get(0);
+                        handler.sendMessage(msg);
                     } else {
 
-                        Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Message msg = handler.obtainMessage();
+                        msg.what = 2;
+                        handler.sendMessage(msg);
                     }
                 } catch (Exception e) {
-                    Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
+                    Message msg = handler.obtainMessage();
+                    msg.what = 2;
+                    handler.sendMessage(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                dialog.dismiss();
-                Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
+                Message msg = handler.obtainMessage();
+                msg.what = 2;
+                handler.sendMessage(msg);
             }
         });
 
@@ -207,7 +287,32 @@ public class YingxiaoCenterActivity extends Activity {
 
     }
 
+    private void handlerYinxiaoMsgNull() {
+        mTvNewvip.setText("");
+        mTvYingshouheji.setText("");
+        mTvMoney.setText("");
+        mTvQita.setText("");
+        mTvZengsong.setText("");
+        mTvZhifubao.setText("");
+        mTvWeixin.setText("");
+        mTvYinlian.setText("");
+        mTvHeji.setText("");
 
+        mTvXfmoney.setText("");
+        mTvXfyue.setText("");
+        mTvXfqita.setText("");
+        mTvXfzhifubao.setText("");
+        mTvXfweixin.setText("");
+        mTvXfyinlian.setText("");
+        mTvXfheji.setText("");
+        tv_txhz.setText("");
+        tv_txzje.setText("");
+        tv_kczje.setText("");
+        tv_yjxj.setText("");
+        tv_zjyj.setText("");
+        tv_thyj.setText("");
+
+    }
     @OnClick({R.id.rl_left, R.id.boss_tv_starttime, R.id.boss_tv_endtime})
     public void onViewClicked(View view) {
         switch (view.getId()) {
