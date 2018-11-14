@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +21,6 @@ import com.loopj.android.http.RequestParams;
 import com.shoppay.hshyly.bean.YinxiaoCenter;
 import com.shoppay.hshyly.http.InterfaceBack;
 import com.shoppay.hshyly.tools.BluetoothUtil;
-import com.shoppay.hshyly.tools.CommonUtils;
 import com.shoppay.hshyly.tools.DateUtils;
 import com.shoppay.hshyly.tools.DayinUtils;
 import com.shoppay.hshyly.tools.DialogUtil;
@@ -88,6 +88,20 @@ public class YingxiaoCenterActivity extends Activity {
     TextView mTvXfweixin;
     @Bind(R.id.tv_xfheji)
     TextView mTvXfheji;
+    @Bind(R.id.et_account)
+    EditText et_account;
+    @Bind(R.id.tv_txhz)
+    TextView tv_txhz;
+    @Bind(R.id.tv_txzje)
+    TextView tv_txzje;
+    @Bind(R.id.tv_kczje)
+    TextView tv_kczje;
+    @Bind(R.id.tv_yjxj)
+    TextView tv_yjxj;
+    @Bind(R.id.tv_zjyj)
+    TextView tv_zjyj;
+    @Bind(R.id.tv_thyj)
+    TextView tv_thyj;
     private Activity ac;
     private Dialog dialog;
 
@@ -98,7 +112,7 @@ public class YingxiaoCenterActivity extends Activity {
         ButterKnife.bind(this);
         ac = this;
         dialog = DialogUtil.loadingDialog(ac, 1);
-        mTvTitle.setText("营销中心");
+        mTvTitle.setText("会员销卡");
         mBossTvStarttime.setText(getStringDate());
         mBossTvEndtime.setText(getStringDate());
         obtainBoss();
@@ -119,6 +133,7 @@ public class YingxiaoCenterActivity extends Activity {
 
         map.put("StartDate",mBossTvStarttime.getText().toString());
         map.put("EndDate",mBossTvEndtime.getText().toString());
+        map.put("UserAccount",et_account.getText().toString());
         String url = UrlTools.obtainUrl(ac, "?Source=3", "RptOverallDataGet");
         LogUtils.d("xxurl", url);
         client.post(url, map, new AsyncHttpResponseHandler() {
@@ -167,7 +182,7 @@ public class YingxiaoCenterActivity extends Activity {
 
     private void handlerYinxiaoMsg(YinxiaoCenter yx) {
         mTvNewvip.setText(yx.getMemCount());
-        mTvYingshouheji.setText(CommonUtils.add(Double.parseDouble(yx.getRechSubtotal()),Double.parseDouble(yx.getOrderSubtotal()))+"");
+        mTvYingshouheji.setText(yx.TotalMoney);
         mTvMoney.setText(yx.getRechCash());
         mTvQita.setText(yx.getRechOthePayment());
         mTvZengsong.setText(yx.getRechGiveMoney());
@@ -183,6 +198,12 @@ public class YingxiaoCenterActivity extends Activity {
         mTvXfweixin.setText(yx.getOrderWeChatPay());
         mTvXfyinlian.setText(yx.getOrderUnion());
         mTvXfheji.setText(yx.getOrderSubtotal());
+        tv_txhz.setText(yx.SumDrawMoney);
+        tv_txzje.setText(yx.SumDrawMoney);
+        tv_kczje.setText(yx.SumDrawActualMoney);
+        tv_yjxj.setText(yx.DepositTotal);
+        tv_zjyj.setText(yx.DepositAdd);
+        tv_thyj.setText(yx.DepositReturn);
 
     }
 

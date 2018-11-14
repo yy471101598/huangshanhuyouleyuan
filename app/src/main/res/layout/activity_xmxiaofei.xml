@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroudcolor"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/backgroudcolor"
+              android:orientation="vertical">
 
     <include layout="@layout/title_twoicon_back"></include>
 
@@ -20,7 +20,7 @@
             android:layout_marginLeft="10dp"
             android:text="会员卡号"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/viprecharge_et_card"
@@ -33,7 +33,7 @@
             android:gravity="center_vertical|right"
             android:paddingLeft="10dp"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View
@@ -54,7 +54,7 @@
             android:layout_marginLeft="10dp"
             android:text="卡面号码"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/viprecharge_et_cardmian"
@@ -67,7 +67,7 @@
             android:gravity="center_vertical|right"
             android:paddingLeft="10dp"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View
@@ -88,7 +88,7 @@
             android:layout_marginLeft="10dp"
             android:text="会员姓名"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/viprecharge_et_name"
@@ -101,7 +101,7 @@
             android:gravity="center_vertical|right"
             android:paddingLeft="10dp"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View
@@ -122,7 +122,7 @@
             android:layout_marginLeft="10dp"
             android:text="会员余额"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/viprecharge_et_yue"
@@ -135,7 +135,7 @@
             android:gravity="center_vertical|right"
             android:paddingLeft="10dp"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View
@@ -157,7 +157,7 @@
             android:layout_marginLeft="10dp"
             android:text="会员等级"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/viprecharge_et_dengji"
@@ -170,7 +170,7 @@
             android:gravity="center_vertical|right"
             android:paddingLeft="10dp"
             android:textColor="@color/text_30"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <View
@@ -179,12 +179,105 @@
         android:background="@color/viewcolor"></View>
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        >
+
+        <TextView
+            android:id="@+id/viprecharge_tv_xm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="项目"
+            android:textColor="@color/theme_red"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/viprecharge_et_xmname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/viprecharge_tv_xm"
+            android:text="aaa"
+            android:textColor="@color/theme_red"
+            android:textSize="22sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:id="@+id/img_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/red_del"
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/kuang_xmnum"
+                >
+
+                <EditText
+                    android:id="@+id/tv_xmnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:text="1"
+                    android:textColor="@color/text_30"
+                    android:textSize="22sp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/img_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/red_add"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_confiem"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="55dp"
+        android:background="@drawable/kuang_red_red">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/rl_hexiao"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="55dp"
         android:background="@drawable/kuang_red_red">
 
         <TextView
@@ -193,6 +286,6 @@
             android:layout_centerInParent="true"
             android:text="扫码核销"
             android:textColor="#ffffff"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 </LinearLayout>

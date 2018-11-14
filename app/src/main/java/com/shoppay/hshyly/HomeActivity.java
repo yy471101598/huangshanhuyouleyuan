@@ -141,7 +141,7 @@ public class HomeActivity extends Activity{
                         Intent duihuanjilu=new Intent(ac,DuihuanjiluActivity.class);
                         startActivity(duihuanjilu);
                         break;
-                    case "营销中心":
+                    case "会员销卡":
                         Intent yingxiao=new Intent(ac,YingxiaoCenterActivity.class);
                         startActivity(yingxiao);
                         break;
@@ -232,10 +232,10 @@ public class HomeActivity extends Activity{
 //        h63.name="兑换记录";
 //        h63.iconId=R.mipmap.duihuanjilv;
 //        list.add(h63);
-//        Home h61=new Home();
-//        h61.name="营销中心";
-//        h61.iconId=R.mipmap.jinriyinxiao;
-//        list.add(h61);
+        Home h61=new Home();
+        h61.name="会员销卡";
+        h61.iconId=R.mipmap.jinriyinxiao;
+        list.add(h61);
         Home h6=new Home();
         h6.name="个人中心";
         h6.iconId=R.mipmap.gerenzhongxin;

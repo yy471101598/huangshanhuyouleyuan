@@ -61,6 +61,19 @@ public class YinxiaoCenter {
     private String OrderDYPoint;
     private String OrderDYPointMoney;
     private String MemCount;
+    // 押金数据
+    public String DepositAdd;//=增加押金
+    public String DepositReturn;//=退还押金
+    public String DepositTotal;//=押金小计
+
+    //  提现数据
+//    public String SumDrawMoney;//=提现总金额
+    public String SumDrawActualMoney;//=扣除总金额
+    public String SumDrawMoney;//=提现汇总
+
+
+    public String TotalMoney;//=营收合计
+
 
     public String getShopID() {
         return ShopID;
