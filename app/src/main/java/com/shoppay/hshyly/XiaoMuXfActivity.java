@@ -10,7 +10,6 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -304,17 +303,26 @@ public class XiaoMuXfActivity extends Activity {
                         SoundPlayUtils.play(1);
                         JSONObject jsonObject = (JSONObject) jso.getJSONArray("print").get(0);
                         if (jsonObject.getInt("printNumber") == 0) {
-                            finish();
+//                            finish();
                         } else {
                             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                             if (bluetoothAdapter.isEnabled()) {
                                 BluetoothUtil.connectBlueTooth(XiaoMuXfActivity.this);
                                 BluetoothUtil.sendData(DayinUtils.dayin(jsonObject.getString("printContent")), jsonObject.getInt("printNumber"));
-                                finish();
+//                                finish();
                             } else {
-                                finish();
+//                                finish();
                             }
                         }
+                        //成功后处理
+                        isSuccess=false;
+                        viprechargeEtCard.setText("");
+                        viprechargeEtName.setText("");
+                        viprechargeEtYue.setText("");
+                        viprechargeEtCardmian.setText("");
+                        viprechargeEtDengji.setText("");
+                        xmnum=1;
+                        et_xmnum.setText("1");
                     } else {
                         SoundPlayUtils.play(2);
                         Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
