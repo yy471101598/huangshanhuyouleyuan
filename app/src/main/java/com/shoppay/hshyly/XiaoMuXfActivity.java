@@ -10,7 +10,6 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,10 +78,10 @@ public class XiaoMuXfActivity extends Activity {
     RelativeLayout rlHexiao;
     @Bind(R.id.viprecharge_et_xmname)
     TextView mViprechargeEtXmname;
-    @Bind(R.id.img_add)
-    ImageView img_add;
-    @Bind(R.id.img_del)
-    ImageView img_del;
+    @Bind(R.id.rl_add)
+    RelativeLayout img_add;
+    @Bind(R.id.rl_del)
+    RelativeLayout img_del;
     @Bind(R.id.tv_xmnum)
     TextView et_xmnum;
     @Bind(R.id.rl_confirm)
@@ -179,9 +178,9 @@ public class XiaoMuXfActivity extends Activity {
             @Override
             protected void onNoDoubleClick(View view) {
                 if (isSuccess) {
-                    ontainVipInfo(viprechargeEtCard.getText().toString(),false);
-                }else{
-                    Toast.makeText(ac,"会员信息不正确",Toast.LENGTH_SHORT).show();
+                    ontainVipInfo(viprechargeEtCard.getText().toString(), false);
+                } else {
+                    Toast.makeText(ac, "会员信息不正确", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -315,13 +314,13 @@ public class XiaoMuXfActivity extends Activity {
                             }
                         }
                         //成功后处理
-                        isSuccess=false;
+                        isSuccess = false;
                         viprechargeEtCard.setText("");
                         viprechargeEtName.setText("");
                         viprechargeEtYue.setText("");
                         viprechargeEtCardmian.setText("");
                         viprechargeEtDengji.setText("");
-                        xmnum=1;
+                        xmnum = 1;
                         et_xmnum.setText("1");
                     } else {
                         SoundPlayUtils.play(2);
@@ -372,19 +371,19 @@ public class XiaoMuXfActivity extends Activity {
     }
 
 
-    @OnClick({R.id.rl_left, R.id.img_del, R.id.img_add})
+    @OnClick({R.id.rl_left, R.id.rl_del, R.id.rl_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_left:
                 finish();
                 break;
-            case R.id.img_add:
+            case R.id.rl_add:
                 xmnum = xmnum + 1;
                 et_xmnum.setText(xmnum + "");
 
 
                 break;
-            case R.id.img_del:
+            case R.id.rl_del:
                 if (xmnum == 1) {
                     xmnum = 1;
                     et_xmnum.setText(xmnum + "");

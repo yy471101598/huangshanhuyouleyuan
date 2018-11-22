@@ -142,8 +142,12 @@ public class HomeActivity extends Activity{
                         startActivity(duihuanjilu);
                         break;
                     case "会员销卡":
+                        if(quanxian.jiaobanmanage==1) {
                         Intent yingxiao=new Intent(ac,YingxiaoCenterActivity.class);
                         startActivity(yingxiao);
+                        }else{
+                            Toast.makeText(ac,"该功能未授权",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case "个人中心":
                         Intent personal=new Intent(ac,PersonalActivity.class);
@@ -204,10 +208,10 @@ public class HomeActivity extends Activity{
 //        h7.name="快速消费";
 //        h7.iconId=R.mipmap.fastxiaofei;
 //        list.add(h7);
-//        Home h9=new Home();
-//        h9.name="计次消费";
-//        h9.iconId=R.mipmap.vipnumxiaofei;
-//        list.add(h9);
+        Home h9=new Home();
+        h9.name="计次消费";
+        h9.iconId=R.mipmap.vipnumxiaofei;
+        list.add(h9);
         Home h4=new Home();
         h4.name="会员充值";
         h4.iconId=R.mipmap.viprecharge;
