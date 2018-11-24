@@ -200,7 +200,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         }
                     }
                 } catch (Exception e) {
-                    LogUtils.d("xxEs",e.toString());
+                    LogUtils.d("xxEs", e.toString());
                     dialog.dismiss();
                     if (type.equals("no")) {
 
@@ -254,6 +254,10 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         PreferenceHelper.write(ac, "shoppay", "DiscountPoint", info.getDiscountPoint());
                         PreferenceHelper.write(ac, "shoppay", "jifen", info.getMemPoint());
                         isSuccess = true;
+                        rl_chose.setVisibility(View.VISIBLE);
+                        isChose = false;
+                        tv_chose.setText("");
+                        et_money.setText("");
                     } else {
                         tv_vipname.setText("");
                         tv_vipyue.setText("");
@@ -263,6 +267,10 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                         isSuccess = false;
                         PreferenceHelper.write(ac, "shoppay", "memid", "123");
                         PreferenceHelper.write(ac, "shoppay", "vipcar", "123");
+                        rl_chose.setVisibility(View.VISIBLE);
+                        isChose = false;
+                        tv_chose.setText("");
+                        et_money.setText("");
                     }
                 } catch (Exception e) {
                     tv_vipname.setText("");
@@ -271,6 +279,10 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                     tv_cardmian.setText("");
                     tv_dengji.setText("");
                     isSuccess = false;
+                    rl_chose.setVisibility(View.VISIBLE);
+                    isChose = false;
+                    tv_chose.setText("");
+                    et_money.setText("");
                     PreferenceHelper.write(ac, "shoppay", "memid", "123");
                     PreferenceHelper.write(ac, "shoppay", "vipcar", "123");
                 }
@@ -285,6 +297,10 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                 tv_jifen.setText("");
                 tv_dengji.setText("");
                 isSuccess = false;
+                rl_chose.setVisibility(View.VISIBLE);
+                isChose = false;
+                tv_chose.setText("");
+                et_money.setText("");
                 PreferenceHelper.write(ac, "shoppay", "memid", "123");
                 PreferenceHelper.write(ac, "shoppay", "vipcar", "123");
             }
@@ -473,23 +489,27 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.viprecharge_et_zengsong:
-                if (list == null || list.size() == 0) {
-                    rechargeChoseList("yes");
+                if (isSuccess) {
+                    if (list == null || list.size() == 0) {
+                        rechargeChoseList("yes");
+                    } else {
+                        RechargeDialog.rechargeChoseDialog(VipRechargeActivity.this, list, 1, new InterfaceBack() {
+                            @Override
+                            public void onResponse(Object response) {
+                                rechargeMsg = (RechargeMsg) response;
+                                rl_chose.setVisibility(View.GONE);
+                                isChose = true;
+                                tv_chose.setText("充值" + StringUtil.twoNum(rechargeMsg.RechargeMoney) + "元送" + StringUtil.twoNum(rechargeMsg.GiveMoney) + "元");
+                            }
+
+                            @Override
+                            public void onErrorResponse(Object msg) {
+
+                            }
+                        });
+                    }
                 } else {
-                    RechargeDialog.rechargeChoseDialog(ac, list, 1, new InterfaceBack() {
-                        @Override
-                        public void onResponse(Object response) {
-                            rechargeMsg = (RechargeMsg) response;
-                            rl_chose.setVisibility(View.GONE);
-                            isChose = true;
-                            tv_chose.setText("充值" + StringUtil.twoNum(rechargeMsg.RechargeMoney) + "元送" + StringUtil.twoNum(rechargeMsg.GiveMoney) + "元");
-                        }
-
-                        @Override
-                        public void onErrorResponse(Object msg) {
-
-                        }
-                    });
+                    Toast.makeText(ac, "请获取正确的会员信息", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.rl_chose:
