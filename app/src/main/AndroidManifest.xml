@@ -13,9 +13,6 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="25" />
     <application
         android:name="com.shoppay.hshyly.MyApplication"
         android:allowBackup="true"
